@@ -1,0 +1,27 @@
+# NOTE: Make sure to update the 'testproject-agent' container volume with a valid local path.
+# To execute this docker-compose, store it in a file (e.g. testproject-agent.yaml) an run:
+# docker-compose -f <file_name> up -d
+
+version: "3.1"
+services:
+  testproject-agent:
+    image: testproject/agent:latest
+    container_name: testproject-agent
+    depends_on:
+      - chrome
+      - firefox
+    volumes:
+      - .:/var/testproject/agent
+    environment:
+      TP_AGENT_ALIAS: "Docker Agent"
+      TP_API_KEY: "jRDXXEaB71Zi1QzBkMiV2ZCR4W2P28zusZXwmewjzlY1"
+      CHROME: "chrome:4444"
+      FIREFOX: "firefox:4444"
+  chrome:
+    image: selenium/standalone-chrome
+    volumes:
+      - /dev/shm:/dev/shm
+  firefox:
+    image: selenium/standalone-firefox
+    volumes:
+      - /dev/shm:/dev/shm
