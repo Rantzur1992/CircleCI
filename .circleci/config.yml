@@ -12,7 +12,9 @@ jobs:
       - python/install-deps
       - python/save-cache
       - run:
-          command: python3 main.py
+          command: |
+            docker-compose up -d
+            python3 main.py
           name: Run TestProject Python Test
 
 workflows:
